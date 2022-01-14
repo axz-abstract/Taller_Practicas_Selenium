@@ -3,12 +3,13 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.List;
+
 
 
 public class WebDriverUtils {
@@ -17,8 +18,8 @@ public class WebDriverUtils {
         return new WebDriverWait(driver, Duration.ofSeconds(seconds)).until(expectedCondition);
     }
 
-    public static WebDriver ExplicitWaitFrame(ExpectedCondition<WebDriver> expectedCondition, int seconds,WebDriver driver) {
-        return new WebDriverWait(driver, Duration.ofSeconds(seconds)).until(expectedCondition);
+    public static void ExplicitWaitFrame(ExpectedCondition<WebDriver> expectedCondition, int seconds,WebDriver driver) {
+        new WebDriverWait(driver, Duration.ofSeconds(seconds)).until(expectedCondition);
     }
 
     public static void ExplicitWaitAlert(ExpectedCondition<Alert> expectedCondition, int seconds, WebDriver driver) {
@@ -60,20 +61,23 @@ public class WebDriverUtils {
 
     public static boolean isElementPresent(WebDriver driver, final By locator) {
         try {
-            driver.findElement(locator);
+            ExplicitWaitElement(
+                    ExpectedConditions.visibilityOfElementLocated(locator),
+                    Constants.MEDIUM_TIMEOUT,
+                    driver
+            );
             return true;
         } catch (Exception e) {
             return false;
         }
     }
     public static void highlightAll(List<WebElement> aux_list, WebDriver driver){
-        for (WebElement e: aux_list) {
-            MoveToElement(e, driver);
+        for (WebElement e: aux_list)
             highlight(e,driver);
-        }
     }
 
     public static void highlight(WebElement element, WebDriver driver) {
+        MoveToElement(element, driver);
         JavascriptExecutor executor = (JavascriptExecutor) driver;
         Object originalBoxShadows = executor.executeScript("return arguments[0].style.boxShadow", element);
 
@@ -101,7 +105,7 @@ public class WebDriverUtils {
         executor.executeScript("arguments[0].style.boxShadow = arguments[1]", element, originalBoxShadows);
     }
 
-    public static Path getResourcePath(String resource){
-        return Paths.get(System.getProperty("user.dir"),"src","test","java","resources",resource);
+    public static String getResourcePath(String resource){
+        return Paths.get(System.getProperty("user.dir"),"src","test","java","resources",resource).toString();
     }
 }

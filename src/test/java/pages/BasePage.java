@@ -1,7 +1,6 @@
 package pages;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import utils.*;
 
 // TODO: Auto-generated Javadoc
@@ -30,7 +29,6 @@ public abstract class BasePage {
 	 * @throws WebDriverException the illegal access exception
 	 */
 	public final void isLoaded() throws WebDriverException {
-		WebDriverUtils.ImplicitWait(Constants.LONG_TIMEOUT,driver);
 		if(!WebDriverUtils.isElementPresent(driver, this.getPageLoadedLocator())) {
 			throw new WebDriverException("This is not " + this.getClass().getName() + " Page Object");
 		}	

@@ -8,6 +8,8 @@ import java.util.List;
 public class LaptopsPage extends BasePage{
 
     public By products = By.className("product-thumb");
+    public By TTL4Product = By.cssSelector(".product-thumb h4");
+
     public By spanAddToCart = By.cssSelector("#content .fa-shopping-cart + span");
     // Alternative locator
     public By btnAddToCart = By.cssSelector("#content button[onclick^=cart]");

@@ -1,22 +1,29 @@
 package tests;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.*;
+import io.opentelemetry.exporter.logging.SystemOutLogExporter;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.Color;
-import org.openqa.selenium.support.locators.RelativeLocator;
-import org.testng.Assert;
-import org.testng.annotations.*;
-import pages.LaptopsPage;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Test;
 import pages.TopBar;
+import utils.Constants;
 import utils.WebDriverUtils;
-
-import java.util.List;
 
 public class BaseTest {
 
     protected WebDriver driver = null;
+    protected TopBar topbarPage;
 
     @BeforeSuite
     public void setUpDriver(){
@@ -27,9 +34,13 @@ public class BaseTest {
     @BeforeMethod
     public void beforeTest() {
         System.out.println("Creating instance of WebDriver");
-        driver = RemoteWebDriver.builder().oneOf(new ChromeOptions()).build();
+        driver = RemoteWebDriver.builder().oneOf(new ChromeOptions().addArguments(
+                "--ignore-ssl-errors=yes",
+                "--ignore-certificate-errors"
+        )).build();
         driver.manage().window().maximize();
         driver.get(getMainUrl());
+        topbarPage = new TopBar(driver);
     }
 
     protected String getMainUrl() {
@@ -40,7 +51,6 @@ public class BaseTest {
     public void afterTest()  {
         this.driver.quit();
     }
-
 
 }
 
