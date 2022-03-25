@@ -2,10 +2,8 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import utils.Constants;
-import utils.WebDriverUtils;
 
 public class NewsletterPage extends BasePage{
 
@@ -31,10 +29,9 @@ public class NewsletterPage extends BasePage{
 
     public MyAccountPage subscribe(){
         long startTime = System.currentTimeMillis();
-        WebDriverUtils.ExplicitWaitElement(
+        this.ExplicitWaitElement(
                 ExpectedConditions.elementToBeClickable(checkYes),
-                Constants.TINY_TIMEOUT,
-                driver
+                Constants.TINY_TIMEOUT
         ).click();
         long endTime = System.currentTimeMillis();
         System.out.println("Explicit wait set to 5 seconds, but found under " + (endTime - startTime) + " milliseconds");
@@ -44,10 +41,9 @@ public class NewsletterPage extends BasePage{
 
     public MyAccountPage unsubscribe(){
         long startTime = System.currentTimeMillis();
-        WebDriverUtils.ExplicitWaitElement(
+        this.ExplicitWaitElement(
                 ExpectedConditions.elementToBeClickable(checkNo),
-                Constants.TINY_TIMEOUT,
-                driver
+                Constants.TINY_TIMEOUT
         ).click();
         long endTime = System.currentTimeMillis();
         System.out.println("Explicit wait set to 5 seconds, but found under " + (endTime - startTime) + " milliseconds");

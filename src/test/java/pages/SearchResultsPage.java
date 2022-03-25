@@ -24,24 +24,24 @@ public class SearchResultsPage extends BasePage{
     }
 
     public ProductPage selectProduct(String name){
-        WebDriverUtils.ImplicitWait(Constants.SHORT_TIMEOUT,driver);
+//        this.ImplicitWait(Constants.SHORT_TIMEOUT);
         WebElement product;
         long startTime = System.currentTimeMillis();
         try {
-            product = WebDriverUtils.ExplicitWaitElement(
+            product = this.ExplicitWaitElement(
                     ExpectedConditions.visibilityOfElementLocated(By.linkText(name)),
-                    Constants.TINY_TIMEOUT,
-                    driver);
+                    Constants.TINY_TIMEOUT
+            );
 //            product = driver.findElement(By.linkText(name));
         } catch (WebDriverException e){
             long endTime = System.currentTimeMillis();
             System.out.println("Find element failed under " + (endTime - startTime) + " milliseconds");
             startTime = System.currentTimeMillis();
 //            product = driver.findElement(By.partialLinkText(name));
-            product = WebDriverUtils.ExplicitWaitElement(
+            product = this.ExplicitWaitElement(
                     ExpectedConditions.visibilityOfElementLocated(By.partialLinkText(name)),
-                    Constants.TINY_TIMEOUT,
-                    driver);
+                    Constants.TINY_TIMEOUT
+            );
             endTime = System.currentTimeMillis();
             System.out.println("Find element success under " + (endTime - startTime) + " milliseconds");
         }

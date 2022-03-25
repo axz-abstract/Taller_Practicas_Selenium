@@ -6,8 +6,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import utils.Constants;
 import utils.WebDriverUtils;
 
-import java.time.Duration;
-
 public class TopBar extends BasePage{
 
     private final By dropLaptops = By.cssSelector(".dropdown > a[href$='18']");
@@ -39,10 +37,9 @@ public class TopBar extends BasePage{
 
     public LaptopsPage goToShowAllLaptops(){
         WebDriverUtils.MoveToElement(dropLaptops,driver);
-        WebDriverUtils.ExplicitWaitElement(
+        this.ExplicitWaitElement(
                 ExpectedConditions.visibilityOfElementLocated(btnShowAllLaptops),
-                Constants.TINY_TIMEOUT,
-                driver
+                Constants.TINY_TIMEOUT
         ).click();
         return new LaptopsPage(driver);
     }
@@ -55,30 +52,28 @@ public class TopBar extends BasePage{
 
     public LoginPage goToLoginPage(){
         driver.findElement(dropMyAccount).click();
-        WebDriverUtils.ExplicitWaitElement(
+        this.ExplicitWaitElement(
                 ExpectedConditions.visibilityOfElementLocated(linkLogin),
-                Constants.TINY_TIMEOUT,
-                driver
+                Constants.TINY_TIMEOUT
         ).click();
         return new LoginPage(driver);
     }
 
     public MyAccountPage goToMyAccount(){
         driver.findElement(dropMyAccount).click();
-        WebDriverUtils.ExplicitWaitElement(
+        this.ExplicitWaitElement(
                 ExpectedConditions.visibilityOfElementLocated(linkMyAccount),
-                Constants.TINY_TIMEOUT,
-                driver
+                Constants.TINY_TIMEOUT
         ).click();
         return new MyAccountPage(driver);
     }
 
     public void goToHomePage(){
         driver.findElement(linkHome).click();
-        WebDriverUtils.ExplicitWaitBoolean(
+        this.ExplicitWaitBoolean(
                 ExpectedConditions.titleIs("Your Store"),
-                Constants.SHORT_TIMEOUT,
-                driver);
+                Constants.SHORT_TIMEOUT
+        );
     }
 
 

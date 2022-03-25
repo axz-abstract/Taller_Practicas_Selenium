@@ -17,9 +17,9 @@ import java.util.List;
 
 public class WorkShop_DataDriven extends BaseTest{
 
-    @Test
-    public void localDataProvider(){
-        String searchText = "Apple Cinema";
+    @Test(dataProvider = "Products",dataProviderClass = DataProviderDefault.class)
+    public void localDataProvider(String searchText){
+//        String searchText = "Apple Cinema";
         SearchResultsPage resultsPage = topbarPage.SearchProduct(searchText);
         Assert.assertEquals(resultsPage.getTitle(),"Search - " + searchText);
         ProductPage prodPage =  resultsPage.selectProduct(searchText);
